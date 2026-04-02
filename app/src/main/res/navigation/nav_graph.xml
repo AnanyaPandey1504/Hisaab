@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_home">
+
+    <!-- ── Top-level tab destinations ───────────────────────────── -->
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.expensetracker.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_transactions"
+        android:name="com.example.expensetracker.ui.transactions.TransactionsFragment"
+        android:label="Transactions"
+        tools:layout="@layout/fragment_transactions">
+
+        <action
+            android:id="@+id/action_transactions_to_addEdit"
+            app:destination="@id/addEditTransactionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_goals"
+        android:name="com.example.expensetracker.ui.goals.GoalsFragment"
+        android:label="Goals"
+        tools:layout="@layout/fragment_goals">
+
+        <action
+            android:id="@+id/action_goals_to_addEdit"
+            app:destination="@id/addEditGoalFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_insights"
+        android:name="com.example.expensetracker.ui.insights.InsightsFragment"
+        android:label="Insights"
+        tools:layout="@layout/fragment_insights" />
+
+    <!-- ── Detail destinations (not in bottom nav) ──────────────── -->
+
+    <fragment
+        android:id="@+id/addEditTransactionFragment"
+        android:name="com.example.expensetracker.ui.transactions.AddEditTransactionFragment"
+        android:label="Transaction"
+        tools:layout="@layout/fragment_add_edit_transaction">
+
+        <argument
+            android:name="transactionId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addEditGoalFragment"
+        android:name="com.example.expensetracker.ui.goals.AddEditGoalFragment"
+        android:label="Goal"
+        tools:layout="@layout/fragment_add_edit_goal">
+
+        <argument
+            android:name="goalId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+
+</navigation>

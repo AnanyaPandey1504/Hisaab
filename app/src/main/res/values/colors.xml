@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- App accent colors -->
+    <color name="income_green">#FF2E7D32</color>
+    <color name="expense_red">#FFC62828</color>
+
+    <!-- Chart palette -->
+    <color name="chart_1">#FF1E88E5</color>
+    <color name="chart_2">#FF43A047</color>
+    <color name="chart_3">#FFFDD835</color>
+    <color name="chart_4">#FFEF5350</color>
+    <color name="chart_5">#FF8E24AA</color>
+    <color name="chart_6">#FFFF7043</color>
+    <color name="chart_7">#FF26C6DA</color>
+    <color name="chart_8">#FF78909C</color>
 </resources>
