@@ -1,14 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/tvPlaceholder"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Add / Edit Transaction"
-        android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</FrameLayout>
+        <!-- ── Screen Title ─────────────────────────────────── -->
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Transaction"
+            android:textAppearance="?attr/textAppearanceHeadlineSmall"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp" />
+
+        <!-- ── Type Toggle: Income / Expense ────────────────── -->
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggleType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:singleSelection="true"
+            app:selectionRequired="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnIncome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Income"
+                style="?attr/materialButtonOutlinedStyle" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnExpense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Expense"
+                style="?attr/materialButtonOutlinedStyle" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <!-- ── Amount ───────────────────────────────────────── -->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="Amount (₹)"
+            app:prefixText="₹"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ── Category Dropdown ────────────────────────────── -->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="Category"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+            <AutoCompleteTextView
+                android:id="@+id/actvCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ── Date ─────────────────────────────────────────── -->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="Date"
+            app:startIconDrawable="@android:drawable/ic_menu_my_calendar"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:focusable="false"
+                android:clickable="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ── Note ─────────────────────────────────────────── -->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:hint="Note (optional)"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:maxLines="3" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ── Save Button ──────────────────────────────────── -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Transaction"
+            android:textAllCaps="false"
+            android:paddingVertical="12dp" />
+
+    </LinearLayout>
+
+</ScrollView>
