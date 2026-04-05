@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
+import android.content.res.Configuration
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -57,9 +59,23 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupThemeToggle()
         setupPieChart()
         setupBarChart()
         observeViewModel()
+    }
+    
+    private fun setupThemeToggle() {
+        val isDarkMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        binding.btnThemeToggle.setImageResource(if (isDarkMode) R.drawable.ic_sun else R.drawable.ic_moon)
+        
+        binding.btnThemeToggle.setOnClickListener {
+            if (isDarkMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -94,6 +110,8 @@ class HomeFragment : Fragment() {
     // ── Pie Chart (Spending by Category) ───────────────────────────
 
     private fun setupPieChart() {
+        val textColor = com.google.android.material.color.MaterialColors.getColor(requireView(), com.google.android.material.R.attr.colorOnSurface)
+
         binding.pieChart.apply {
             setUsePercentValues(true)
             description.isEnabled = false
@@ -103,11 +121,14 @@ class HomeFragment : Fragment() {
             setDrawCenterText(true)
             centerText = "Expenses"
             setCenterTextSize(14f)
+            setCenterTextColor(textColor)
             setEntryLabelTextSize(11f)
-            setEntryLabelColor(Color.BLACK)
+            setEntryLabelColor(textColor)
             legend.isEnabled = true
+            legend.textColor = textColor
             legend.textSize = 11f
             setNoDataText("No expenses yet")
+            setNoDataTextColor(textColor)
             animateY(600)
         }
     }
@@ -119,10 +140,12 @@ class HomeFragment : Fragment() {
             return
         }
 
+        val textColor = com.google.android.material.color.MaterialColors.getColor(requireView(), com.google.android.material.R.attr.colorOnSurface)
         val entries = sums.map { PieEntry(it.total.toFloat(), it.category) }
         val dataSet = PieDataSet(entries, "").apply {
             colors = chartColors
             valueTextSize = 12f
+            valueTextColor = textColor
             valueFormatter = PercentFormatter(binding.pieChart)
             sliceSpace = 2f
         }
@@ -133,21 +156,26 @@ class HomeFragment : Fragment() {
     // ── Bar Chart (Weekly Trend) ───────────────────────────────────
 
     private fun setupBarChart() {
+        val textColor = com.google.android.material.color.MaterialColors.getColor(requireView(), com.google.android.material.R.attr.colorOnSurface)
+
         binding.barChart.apply {
             description.isEnabled = false
             setFitBars(true)
             legend.isEnabled = false
             setNoDataText("No expenses this week")
+            setNoDataTextColor(textColor)
             animateY(600)
 
             // X axis: day labels at bottom
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.granularity = 1f
             xAxis.setDrawGridLines(false)
+            xAxis.textColor = textColor
 
             // Y axis
             axisLeft.axisMinimum = 0f
             axisLeft.setDrawGridLines(true)
+            axisLeft.textColor = textColor
             axisRight.isEnabled = false
         }
     }
@@ -175,9 +203,11 @@ class HomeFragment : Fragment() {
             }
         }
 
+        val textColor = com.google.android.material.color.MaterialColors.getColor(requireView(), com.google.android.material.R.attr.colorOnSurface)
         val dataSet = BarDataSet(entries, "Expenses").apply {
             color = ContextCompat.getColor(requireContext(), R.color.chart_1)
             valueTextSize = 10f
+            valueTextColor = textColor
         }
 
         binding.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
